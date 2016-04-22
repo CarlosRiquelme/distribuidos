@@ -41,26 +41,12 @@ public class TCPServerHiloTractores  extends Thread {
                     socket.getInputStream()));
             out.println("Bienvenido!");
             String inputLine, outputLine;
-    //Object obj = new FileReader("/home/marcel/Documentos/Distribuidos/datos.json");
-
-    /*JsonObject jo = (JsonObject) obj;      
-    System.out.println("json object = " + jo.toString());
-    JsonReader jsonReader = Json.createReader(in);
-    JsonArray jsonArray = jsonReader.readArray();
-    ListIterator l = jsonArray.listIterator();
-    while ( l.hasNext() ) {
-          JsonObject j = (JsonObject)l.next();
-          JsonObject ciAttr = j.getJsonObject("tractores") ;
-    }*/
             String altura="";
             String humedad = "";
             String peso= "";
             String temperatura= "";
-            
-            //JSON a enviar
-            //JSONObject objJsonEnviar = new JSONObject();
-            //JSONParser parser = new JSONParser();
             Gson gson =new Gson();
+            int ban=0;
             
 
             while ((inputLine = in.readLine()) != null) {
@@ -91,16 +77,21 @@ public class TCPServerHiloTractores  extends Thread {
                         GuardarDB(tractor);
                     } catch (JSONException ex) {
                         Logger.getLogger(TCPServerHiloTractores.class.getName()).log(Level.SEVERE, null, ex);
+                        ban=1;
                     } catch (SQLException ex) {
                         Logger.getLogger(TCPServerHiloTractores.class.getName()).log(Level.SEVERE, null, ex);
+                        ban=1;
                     }
                 }
-                
-                
-                
-                
-                outputLine = "Se ha guardado sus datos en BD Maestro";
-                out.println(outputLine);
+                if (ban==0){
+                    outputLine = "Se ha enviado a la Base de Datos";
+                    out.println(outputLine);
+                }
+                else{
+                    outputLine = "ERROR: NO SE PUDO ENVIAR A LA BASE DE DATO MAESTRO";
+                    out.println(outputLine);
+                }
+                    
             }
             out.close();
             in.close();
