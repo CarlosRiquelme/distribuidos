@@ -5,11 +5,14 @@
  */
 package distribuidos;
 
-
+import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
@@ -29,7 +32,8 @@ public class DatosTractores {
         System.out.println(miConexion);
           
         JSONObject objJson = new JSONObject();
-
+        Gson gson = new Gson();
+        String formatoJSON=""; 
         if(miConexion != null){
             String tractor_id = datoRecibido;
             System.out.println("id tractor = " + tractor_id);
@@ -37,29 +41,26 @@ public class DatosTractores {
              
             Statement s = miConexion.createStatement(); 
             ResultSet rs = s.executeQuery ("select * from tractores where codigo_tractor = " + dato);
-            
             boolean isRecord = false;
-            while (rs.next()){
-                objJson.put("Altura", rs.getString("altura"));
-                
-                objJson.put("Temperatura",  rs.getString("temperatura"));
-                objJson.put("Peso",  rs.getString("peso"));
-                objJson.put("Humedad",  rs.getString("humedad"));
-                System.out.println("hola soy altura    "+rs.getString("temperatura"));
+            ArrayList<Tractor> lista = new ArrayList();
+            
+            while (rs.next()){       
+                Tractor tractor=new Tractor();
+                tractor.setAltura(rs.getString("altura"));
+                tractor.setHumedad(rs.getString("humedad"));
+                tractor.setPeso(rs.getString("peso"));
+                tractor.setTemperatura(rs.getString("temperatura"));
+                lista.add(tractor);
                 isRecord = true;
-                System.out.println("hola soy alguine");
+              
             }
+            formatoJSON = gson.toJson(lista);
             
             if (!isRecord){
-                objJson.put("Altura", "");
-                objJson.put("Temperatura",  "");
-                objJson.put("Peso",  "");
-                objJson.put("Humedad",  "");
+                formatoJSON="null";
             }
         }
-        System.out.println(objJson.toString());
-        String datosPersonales = objJson.toString();
-        return datosPersonales;
+        return formatoJSON;
     }
 
 

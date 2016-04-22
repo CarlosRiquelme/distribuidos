@@ -48,13 +48,13 @@ public class TCPClienteTractor {
         
         System.out.print("Ingrese Codigo del Tractor: ");
         fromUser = stdIn.readLine();
-        datosTractor=DatosTractores.obtenerDB(fromServer);
-        
+        //datosTractor=DatosTractores.obtenerDB(fromServer);
+        //System.out.println("Soy datos tractor"+datosTractor);
         if (fromUser != null) {
             //System.out.println("Ingrese Cedula: " + fromUser);
 
             //escribimos al servidor
-            out.println(datosTractor);
+            //out.println(datosTractor);
         }
         fromServer = in.readLine();
       

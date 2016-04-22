@@ -6,6 +6,8 @@
 package distribuidos;
 
 import java.sql.SQLException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
