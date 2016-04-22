@@ -1,10 +1,14 @@
 package distribuidos;
 
-import java.net.*;
 import java.io.*;
+import java.net.*;
+import java.util.ListIterator;
+import javax.json.*;
+import javax.json.Json;
+import javax.json.JsonArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 
 public class TCPServerHiloTractores  extends Thread {
     
@@ -24,7 +28,17 @@ public class TCPServerHiloTractores  extends Thread {
                     socket.getInputStream()));
             out.println("Bienvenido!");
             String inputLine, outputLine;
-            
+    Object obj = new FileReader("/home/marcel/Documentos/Distribuidos/datos.json");
+
+    JsonObject jo = (JsonObject) obj;      
+    System.out.println("json object = " + jo.toString());
+    JsonReader jsonReader = Json.createReader(in);
+    JsonArray jsonArray = jsonReader.readArray();
+    ListIterator l = jsonArray.listIterator();
+    while ( l.hasNext() ) {
+          JsonObject j = (JsonObject)l.next();
+          JsonObject ciAttr = j.getJsonObject("tractores") ;
+    }
             String altura="";
             String humedad = "";
             String peso= "";
