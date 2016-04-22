@@ -50,6 +50,7 @@ public class DatosTractores {
                 tractor.setHumedad(rs.getString("humedad"));
                 tractor.setPeso(rs.getString("peso"));
                 tractor.setTemperatura(rs.getString("temperatura"));
+                tractor.setCodigo_tractor(rs.getInt("codigo_tractor"));
                 lista.add(tractor);
                 isRecord = true;
               
