@@ -11,6 +11,17 @@ public class Tractor {
     private String humedad;
     private String peso;
     private String temperatura;
+    private Integer codigo_tractor;
+
+    public Integer getCodigo_tractor() {
+        return codigo_tractor;
+    }
+
+    public void setCodigo_tractor(Integer codigo_tractor) {
+        this.codigo_tractor = codigo_tractor;
+    }
+    
+     
 
     public String getAltura() {
         return altura;
