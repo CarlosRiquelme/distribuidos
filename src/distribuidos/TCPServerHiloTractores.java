@@ -3,6 +3,7 @@ package distribuidos;
 import com.google.gson.Gson;
 import java.io.*;
 import java.net.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -13,6 +14,9 @@ import java.util.logging.Logger;
 //import javax.json.JsonArray;
 
 import org.json.simple.parser.JSONParser;
+import java.sql.Connection;
+import java.sql.Statement;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,18 +82,24 @@ public class TCPServerHiloTractores  extends Thread {
                     JSONObject jsonOb;
                     try {
                         jsonOb = array.getJSONObject(i);
-                        System.out.println("Soy objeto Tractor " +jsonOb.getString("humedad"));
+                        Tractor tractor=new Tractor();
+                        tractor.setAltura(jsonOb.getString("altura"));
+                        tractor.setCodigo_tractor(jsonOb.getInt("codigo_tractor"));
+                        tractor.setHumedad(jsonOb.getString("humedad"));
+                        tractor.setPeso(jsonOb.getString("peso"));
+                        tractor.setTemperatura(jsonOb.getString("temperatura"));
+                        GuardarDB(tractor);
                     } catch (JSONException ex) {
                         Logger.getLogger(TCPServerHiloTractores.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TCPServerHiloTractores.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
                 }
                 
                 
                 
                 
-                outputLine = "Eco : " + inputLine;
+                outputLine = "Se ha guardado sus datos en BD Maestro";
                 out.println(outputLine);
             }
             out.close();
@@ -100,6 +110,31 @@ public class TCPServerHiloTractores  extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void GuardarDB (Tractor tractor) throws SQLException{
+    
+        String servidor = "jdbc:postgresql://localhost/maestroDB";
+        
+        Connection miConexion = ConnectionDB.GetConnection(servidor);
+                
+        System.out.println(miConexion);
+          
+        //JSONObject objJson = new JSONObject();
+        String humedad = "", peso ="", temperatura="", altura="";
+        Integer  codigo_tractor=0;
+
+        if(miConexion != null){
+            humedad = tractor.getHumedad();
+            peso = tractor.getPeso();
+            temperatura = tractor.getTemperatura();
+            altura = tractor.getAltura();
+            codigo_tractor = tractor.getCodigo_tractor();
+            Statement consul = miConexion.createStatement(); 
+            String codigo = "INSERT INTO tractores (humedad, peso, temperatura, altura, codigo_tractor) VALUES ('"+ humedad + "','"+ peso +"','" + temperatura + "','" + altura + "','"+ Integer.toString(codigo_tractor) + "');";
+            consul.executeUpdate (codigo);
+            //consul.prepareStatement (codigo);
+        }
+        //return re;
     }
 
     
