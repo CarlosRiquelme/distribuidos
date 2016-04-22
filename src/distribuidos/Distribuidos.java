@@ -18,7 +18,7 @@ public class Distribuidos {
 
     public static void main(String[] args) throws SQLException {
         
-        String uno="1";
+        String uno="2";
         String datoEnviar = DatosTractores.obtenerDB(uno);
         System.out.println(datoEnviar);
     }
