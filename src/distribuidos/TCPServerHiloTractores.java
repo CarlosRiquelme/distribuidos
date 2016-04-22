@@ -28,10 +28,13 @@ public class TCPServerHiloTractores  extends Thread {
                     socket.getInputStream()));
             out.println("Bienvenido!");
             String inputLine, outputLine;
-    Object obj = new FileReader("/home/marcel/Documentos/Distribuidos/datos.json");
+    //Object obj = new FileReader("/home/marcel/Documentos/Distribuidos/datos.json");
 
-    JsonObject jo = (JsonObject) obj;      
-    System.out.println("json object = " + jo.toString());
+    Object obj = new FileReader("/home/msekatcheff/WDistri/datos.json");
+    
+    JSONObject jO = (JSONObject) obj;
+    //JsonObject jo = (JsonObject) obj;      
+    //System.out.println("json object = " + jo.toString());
     JsonReader jsonReader = Json.createReader(in);
     JsonArray jsonArray = jsonReader.readArray();
     ListIterator l = jsonArray.listIterator();
@@ -47,8 +50,6 @@ public class TCPServerHiloTractores  extends Thread {
             //JSON a enviar
             JSONObject objJsonEnviar = new JSONObject();
             JSONParser parser = new JSONParser();
-
-            
 
             while ((inputLine = in.readLine()) != null) {
                 System.out.println("Mensaje recibido: " + inputLine);
