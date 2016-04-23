@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import org.json.simple.parser.JSONParser;
 import java.sql.Connection;
 import java.sql.Statement;
-
+import model.Tractor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +45,7 @@ public class TCPServerHiloTractores  extends Thread {
             String humedad = "";
             String peso= "";
             String temperatura= "";
+
             Gson gson =new Gson();
             int ban=0;
             
