@@ -91,6 +91,7 @@ public class TCPServerHiloTractores  extends Thread {
                     outputLine = "ERROR: NO SE PUDO ENVIAR A LA BASE DE DATO MAESTRO";
                     out.println(outputLine);
                 }
+                    
             }
             out.close();
             in.close();
