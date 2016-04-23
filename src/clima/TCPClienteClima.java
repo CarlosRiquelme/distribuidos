@@ -23,7 +23,7 @@ public class TCPClienteClima {
         BufferedReader in = null;
         String datosTractor;
         try {
-            unSocket = new Socket("localhost", 4444);
+            unSocket = new Socket("localhost", 4445);
             // enviamos nosotros
             out = new PrintWriter(unSocket.getOutputStream(), true);
 
@@ -47,10 +47,10 @@ public class TCPClienteClima {
         fromServer = in.readLine();
         System.out.println("Servidor: " + fromServer);
         
-        System.out.print("Ingrese Codigo del Tractor: ");
+        System.out.print("Ingrese Codigo del Clima: ");
         fromUser = stdIn.readLine();
-        datosTractor=DatosTractores.obtenerDB(fromUser);
-        System.out.println("Soy datos tractor"+datosTractor);
+        datosTractor=DatosClima.obtenerDB(fromUser);
+        System.out.println("Soy datos del clima"+datosTractor);
         if (fromUser != null) {
             //escribimos al servidor
             out.println(datosTractor);

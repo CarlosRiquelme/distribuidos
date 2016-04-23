@@ -75,6 +75,7 @@ public class TCPServerHiloClima  extends Thread {
                         clima.setZona(jsonOb.getString("zona"));
                         clima.setDistrito(jsonOb.getString("distrito"));
                         clima.setDia(jsonOb.getString("dia"));
+                        clima.setCodigo_clima(jsonOb.getInt("codigo_clima"));
                         GuardarDB(clima);
                     } catch (JSONException ex) {
                         Logger.getLogger(TCPServerHiloClima.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,17 +114,17 @@ public class TCPServerHiloClima  extends Thread {
           
         //JSONObject objJson = new JSONObject();
         String zona = "", distrito ="", departamento="", dia="";
-        Integer  codigo_tractor=0;
+        Integer  codigo_clima=0;
 
         if(miConexion != null){
             zona = clima.getZona();
             distrito = clima.getDistrito();
             departamento = clima.getDepartamento();
             dia = clima.getDia();
+            codigo_clima=clima.getCodigo_clima();
             
             Statement consul = miConexion.createStatement(); 
-            String codigo = "INSERT INTO clima (zona, distrito, departamento,"
-                    + " dia) VALUES ('"+ zona + "','"+ distrito +"','" + departamento + "','" + dia + "');";
+            String codigo = "INSERT INTO clima (zona, distrito, departamento,codigo_clima,dia) VALUES ('"+ zona + "','"+ distrito +"','" + departamento + "','"+ Integer.toString(codigo_clima) + "','" + dia + "')";
             consul.executeUpdate (codigo);
             //consul.prepareStatement (codigo);
         }

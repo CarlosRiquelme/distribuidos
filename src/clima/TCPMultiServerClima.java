@@ -17,12 +17,12 @@ public class TCPMultiServerClima {
         boolean listening = true;
 
         try {
-            serverSocket = new ServerSocket(4444);
+            serverSocket = new ServerSocket(4445);
         } catch (IOException e) {
-            System.err.println("No se puede abrir el puerto: 4444.");
+            System.err.println("No se puede abrir el puerto: 4445.");
             System.exit(1);
         }
-        System.out.println("Puerto abierto: 4444.");
+        System.out.println("Puerto abierto: 4445.");
 
         while (listening) {
             new TCPServerHiloClima(serverSocket.accept()).start();

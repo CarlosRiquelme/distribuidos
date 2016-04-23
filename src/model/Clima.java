@@ -15,6 +15,7 @@ public class Clima {
     private String departamento;
     private String distrito;
     private String dia;
+    private Integer codigo_clima;
 
      public String getZona() {
         return zona;
@@ -47,5 +48,14 @@ public class Clima {
     public void setDia(String dia) {
         this.dia = dia;
     }
+
+    public Integer getCodigo_clima() {
+        return codigo_clima;
+    }
+
+    public void setCodigo_clima(Integer codigo_clima) {
+        this.codigo_clima = codigo_clima;
+    }
+    
     
 }
